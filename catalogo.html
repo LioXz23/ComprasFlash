@@ -159,6 +159,41 @@ function agregarCarrito(index){
 
     let productos =
     JSON.parse(localStorage.getItem("productos")) || [];
+    if(productos.length === 0){
+
+    productos = [
+
+        {
+            nombre:"Laptop Gamer",
+            precio:"24999",
+            descripcion:"Laptop gamer de alto rendimiento con procesador de última generación, 16 GB de RAM y tarjeta gráfica dedicada.",
+            imagen:"Productos/laptop_gamer.png"
+        },
+
+        {
+            nombre:"Mouse Gamer",
+            precio:"799",
+            descripcion:"Mouse gamer ergonómico con iluminación RGB y alta precisión.",
+            imagen:"Productos/mouse_gamer.png"
+        },
+
+        {
+            nombre:"Teclado Gamer",
+            precio:"1299",
+            descripcion:"Teclado mecánico gamer con retroiluminación RGB.",
+            imagen:"Productos/teclado_gamer.png"
+        },
+
+        {
+            nombre:"Silla Gamer",
+            precio:"3499",
+            descripcion:"Silla gamer ergonómica con soporte lumbar y reposabrazos ajustables.",
+            imagen:"Productos/silla_gamer.png"
+        }
+
+    ];
+
+}
 
     let carrito =
     JSON.parse(localStorage.getItem("carrito")) || [];
