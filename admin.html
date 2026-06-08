@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administrador - ComprasFlash</title>
+
+<style>
+
+.navbar{
+    background:#222;
+    padding:15px;
+    text-align:center;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin:0 15px;
+    font-weight:bold;
+}
+
+.navbar a:hover{
+    color:#ff6b00;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#111;
+    color:white;
+}
+
+header{
+    background:#1b1b1b;
+    padding:20px;
+    border-bottom:2px solid #ff6b00;
+}
+
+header h1{
+    color:#ff6b00;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:30px;
+}
+
+.card{
+    background:#1b1b1b;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:25px;
+}
+
+h2{
+    color:#ff6b00;
+    margin-bottom:15px;
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    background:#ff6b00;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ff8533;
+}
+
+.producto{
+    background:#262626;
+    padding:15px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.usuario{
+    background:#262626;
+    padding:15px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.stats{
+    font-size:18px;
+    line-height:35px;
+}
+
+img{
+    width:120px;
+    margin-top:10px;
+    border-radius:8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <nav class="navbar">
+
+<a href="perfil.html">👤 Perfil</a>
+
+<a href="catalogo.html">🛍️ Catálogo</a>
+
+<a href="carrito.html">🛒 Carrito</a>
+
+<a href="rastreo.html">🚚 Rastreo</a>
+
+</nav>
+
+<h1>🔥 ComprasFlash - Panel Administrador</h1>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>📦 Agregar Producto</h2>
+
+<input
+type="text"
+id="nombreProducto"
+placeholder="Nombre del producto">
+
+<input
+type="number"
+id="precioProducto"
+placeholder="Precio">
+
+<textarea
+id="descripcionProducto"
+placeholder="Descripción">
+</textarea>
+
+<input
+type="text"
+id="imagenProducto"
+placeholder="Nombre de la imagen (ej: laptop_gamer.png)">
+
+<button onclick="agregarProducto()">
+Agregar Producto
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>📦 Productos Registrados</h2>
+
+<div id="listaProductos"></div>
+
+</div>
+
+<div class="card">
+
+<h2>👥 Usuarios Registrados</h2>
+
+<div id="listaUsuarios"></div>
+
+</div>
+
+<div class="card">
+
+<div class="card">
+
+<h2>📊 Estadísticas</h2>
+
+<div class="stats">
+
+Usuarios:
+<span id="totalUsuarios"></span>
+<br>
+
+Productos:
+<span id="totalProductos"></span>
+<br>
+
+Pedidos:
+<span id="totalPedidos"></span>
+<br>
+
+Ingresos:
+$<span id="ingresos"></span>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+    function calcularIngresos(){
+
+    let pedidos =
+    JSON.parse(
+        localStorage.getItem("pedidos")
+    ) || [];
+
+    let total = 0;
+
+    pedidos.forEach(pedido => {
+
+        total += Number(pedido.total);
+
+    });
+
+    return total;
+}
+
+let usuarioActual =
+JSON.parse(localStorage.getItem("usuarioActual"));
+
+if(!usuarioActual || usuarioActual.rol !== "admin"){
+    window.location.href = "login.html";
+}
+
+function agregarProducto(){
+
+    let nombre =
+    document.getElementById("nombreProducto").value;
+
+    let precio =
+    document.getElementById("precioProducto").value;
+
+    let descripcion =
+    document.getElementById("descripcionProducto").value;
+
+    let imagen =
+    document.getElementById("imagenProducto").value;
+
+    imagen = "Productos/" + imagen;
+
+    if(
+        nombre === "" ||
+        precio === "" ||
+        descripcion === ""
+    ){
+        alert("Completa todos los campos");
+        return;
+    }
+
+    let productos =
+    JSON.parse(localStorage.getItem("productos")) || [];
+
+    productos.push({
+        nombre,
+        precio,
+        descripcion,
+        imagen
+    });
+
+    localStorage.setItem(
+        "productos",
+        JSON.stringify(productos)
+    );
+
+    alert("Producto agregado");
+
+    location.reload();
+}
+function mostrarProductos(){
+
+    let productos =
+    JSON.parse(localStorage.getItem("productos")) || [];
+
+    let contenedor =
+    document.getElementById("listaProductos");
+
+    contenedor.innerHTML = "";
+
+    productos.forEach((producto,index)=>{
+
+        contenedor.innerHTML += `
+        <div class="producto">
+
+        <h3>${producto.nombre}</h3>
+
+        <p>💲${producto.precio}</p>
+
+        <p>${producto.descripcion}</p>
+
+        ${producto.imagen ?
+        `<img src="${producto.imagen}">`
+        : ""}
+
+        <br><br>
+
+        <button onclick="eliminarProducto(${index})">
+        Eliminar
+        </button>
+
+        </div>
+        `;
+    });
+
+    document.getElementById(
+        "totalProductos"
+    ).textContent = productos.length;
+}
+
+function eliminarProducto(index){
+
+    let productos =
+    JSON.parse(localStorage.getItem("productos")) || [];
+
+    productos.splice(index,1);
+
+    localStorage.setItem(
+        "productos",
+        JSON.stringify(productos)
+    );
+
+    location.reload();
+}
+
+function mostrarUsuarios(){
+
+    let usuarios =
+    JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    let contenedor =
+    document.getElementById("listaUsuarios");
+
+    contenedor.innerHTML = "";
+
+    usuarios.forEach(usuario=>{
+
+        contenedor.innerHTML += `
+        <div class="usuario">
+
+        <strong>
+        ${usuario.nombre}
+        ${usuario.apellido}
+        </strong>
+
+        <br>
+
+        ${usuario.correo}
+
+        <br>
+
+        Rol:
+        ${usuario.rol}
+
+        </div>
+        `;
+    });
+
+    document.getElementById(
+        "totalUsuarios"
+    ).textContent = usuarios.length;
+}
+
+function mostrarPedidos(){
+
+    let pedidos =
+    JSON.parse(
+        localStorage.getItem("pedidos")
+    ) || [];
+
+    let contenedor =
+    document.getElementById("listaPedidos");
+
+    contenedor.innerHTML = "";
+
+    pedidos.forEach((pedido,index)=>{
+
+        contenedor.innerHTML += `
+
+        <div class="producto">
+
+            <h3>${pedido.guia}</h3>
+
+            <p>
+            Cliente:
+            ${pedido.usuario}
+            </p>
+
+            <p>
+            Total:
+            $${pedido.total}
+            </p>
+
+            <p>
+            Estado:
+            <strong>${pedido.estado}</strong>
+            </p>
+
+            <select
+            onchange="cambiarEstado(${index},this.value)">
+
+                <option value="">
+                Cambiar estado
+                </option>
+
+                <option value="Preparando envío">
+                Preparando envío
+                </option>
+
+                <option value="En tránsito">
+                En tránsito
+                </option>
+
+                <option value="En reparto">
+                En reparto
+                </option>
+
+                <option value="Entregado">
+                Entregado
+                </option>
+
+            </select>
+
+        </div>
+
+        `;
+    });
+
+}
+
+function cambiarEstado(index,nuevoEstado){
+
+    let pedidos =
+    JSON.parse(
+        localStorage.getItem("pedidos")
+    ) || [];
+
+    pedidos[index].estado =
+    nuevoEstado;
+
+    localStorage.setItem(
+        "pedidos",
+        JSON.stringify(pedidos)
+    );
+
+    location.reload();
+}
+
+mostrarProductos();
+mostrarUsuarios();
+mostrarPedidos();
+
+let pedidos =
+JSON.parse(
+    localStorage.getItem("pedidos")
+) || [];
+
+document.getElementById(
+    "totalPedidos"
+).textContent = pedidos.length;
+
+document.getElementById(
+    "ingresos"
+).textContent = calcularIngresos();
+
+function calcularIngresos(){
+
+    let pedidos =
+    JSON.parse(
+        localStorage.getItem("pedidos")
+    ) || [];
+
+    let total = 0;
+
+    pedidos.forEach(pedido => {
+
+        total += Number(pedido.total);
+
+    });
+
+    return total;
+}
+</script>
+
+</body>
+</html>

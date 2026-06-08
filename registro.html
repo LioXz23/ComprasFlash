@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro - ComprasFlash</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#111;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:#1b1b1b;
+    padding:40px;
+    border-radius:15px;
+    width:400px;
+    box-shadow:0 0 20px rgba(255,107,0,.3);
+}
+
+h1{
+    text-align:center;
+    color:#ff6b00;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#ff6b00;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#ff8533;
+}
+
+p{
+    text-align:center;
+    margin-top:15px;
+}
+
+a{
+    color:#ff6b00;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🔥 Crear Cuenta</h1>
+
+<input type="text" id="nombre" placeholder="Nombre">
+
+<input type="text" id="apellido" placeholder="Apellido">
+
+<input type="email" id="correo" placeholder="Correo electrónico">
+
+<input type="password" id="password" placeholder="Contraseña">
+
+<button onclick="registrar()">
+Registrarme
+</button>
+
+<p>
+¿Ya tienes cuenta?
+<a href="login.html">Inicia sesión</a>
+</p>
+
+</div>
+
+<script>
+
+function registrar(){
+
+    let nombre =
+    document.getElementById("nombre").value;
+
+    let apellido =
+    document.getElementById("apellido").value;
+
+    let correo =
+    document.getElementById("correo").value;
+
+    let password =
+    document.getElementById("password").value;
+
+    if(
+        nombre==="" ||
+        apellido==="" ||
+        correo==="" ||
+        password===""){
+        alert("Completa todos los campos");
+        return;
+    }
+
+    let usuarios =
+    JSON.parse(localStorage.getItem("usuarios")) || [];
+    let adminExiste =
+usuarios.find(
+    u => u.correo === "admin@comprasflash.com"
+);
+
+if(!adminExiste){
+
+    usuarios.push({
+        nombre: "Administrador",
+        apellido: "ComprasFlash",
+        correo: "admin@comprasflash.com",
+        password: "admin123",
+        rol: "admin"
+    });
+
+    localStorage.setItem(
+        "usuarios",
+        JSON.stringify(usuarios)
+    );
+}
+
+    let existe =
+    usuarios.find(
+        u => u.correo === correo
+    );
+
+    if(existe){
+        alert("Ese correo ya está registrado");
+        return;
+    }
+
+    usuarios.push({
+        nombre,
+        apellido,
+        correo,
+        password,
+        rol: "usuario"
+    });
+
+    localStorage.setItem(
+        "usuarios",
+        JSON.stringify(usuarios)
+    );
+
+    alert("Cuenta creada correctamente");
+
+    window.location.href =
+    "login.html";
+}
+
+</script>
+
+</body>
+</html>

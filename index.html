@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComprasFlash</title>
+
+    <style>
+
+html{
+    scroll-behavior:smooth;
+}
+
+        .logo-container{
+    text-align:center;
+    margin-top:30px;
+
+    .banner{
+    width:100%;
+    overflow:hidden;
+}
+
+.banner{
+    width:100%;
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:60px;
+}
+
+.banner-img{
+    width:80%;
+    max-width:900px;
+    height:auto;
+    display:inline-block;
+}
+
+}
+
+
+
+.logo-container h2{
+    margin-top:20px;
+    color:white;
+}
+
+        .logo-container{
+    text-align:center;
+    margin-top:30px;
+}
+
+
+
+.logo:hover{
+    transform:scale(1.05);
+}
+
+.logo-container h2{
+    margin-top:20px;
+    color:white;
+}
+
+.destacados{
+    margin-top:80px;
+}
+
+@keyframes fuego{
+    from{
+        text-shadow:0 0 10px #ff6b00;
+    }
+
+    to{
+        text-shadow:
+        0 0 20px #ff6b00,
+        0 0 40px #ff4500,
+        0 0 60px red;
+    }
+}
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI', sans-serif;
+        }
+
+       body{
+    background:#0f0f0f;
+    color:white;
+    overflow-x:hidden;
+}
+
+        header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:20px 50px;
+            background:#111;
+            border-bottom:2px solid #ff6b00;
+        }
+
+       
+
+        nav a{
+            color:white;
+            text-decoration:none;
+            margin-left:20px;
+            transition:0.3s;
+        }
+
+        nav a:hover{
+            color:#ff6b00;
+        }
+
+        .hero{
+
+        .hero{
+            margin-top:50px;
+    min-height:50vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:60px 20px;
+}
+            min-height:80vh;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            padding:20px;
+            background:linear-gradient(
+                rgba(0,0,0,0.7),
+                rgba(0,0,0,0.8)
+            );
+        }
+
+        .hero h1{
+            font-size:60px;
+            color:#ff6b00;
+        }
+
+        .hero p{
+            margin-top:15px;
+            font-size:22px;
+            color:#ddd;
+        }
+
+        .hero button{
+            margin-top:30px;
+            padding:15px 35px;
+            border:none;
+            border-radius:10px;
+            background:#ff6b00;
+            color:white;
+            font-size:18px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .hero button:hover{
+            background:#ff8c33;
+        }
+
+        .caballo{
+            font-size:120px;
+            margin-bottom:20px;
+            animation:correr 2s infinite;
+        }
+
+        @keyframes correr{
+            0%{
+                transform:translateX(-15px);
+            }
+            50%{
+                transform:translateX(15px);
+            }
+            100%{
+                transform:translateX(-15px);
+            }
+        }
+
+        footer{
+            text-align:center;
+            padding:20px;
+            border-top:1px solid #333;
+        }
+
+        .logo-container{
+    text-align:center;
+    margin-top:30px;
+}
+
+.logo-img{
+    width:650px;
+    max-width:90%;
+    border-radius:20px;
+
+    box-shadow:
+    0 0 15px #ff6b00,
+    0 0 30px #ff4500;
+
+    max-width:95%;
+    border-radius:20px;
+
+    box-shadow:
+    0 0 20px #ff6b00,
+    0 0 40px #ff4500;
+}
+
+.brand{
+    font-size:32px;
+    font-weight:bold;
+    color:#ff6b00;
+}
+
+.destacados{
+    padding:50px;
+    text-align:center;
+}
+
+.destacados h2{
+    color:#ff6b00;
+    margin-bottom:30px;
+}
+
+#productosDestacados{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+}
+
+.tarjeta-producto{
+    background:#1a1a1a;
+    width:250px;
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(255,107,0,0.3);
+}
+
+.tarjeta-producto img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.tarjeta-producto h3{
+    margin-top:10px;
+}
+
+.tarjeta-producto p{
+    margin-top:5px;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <section class="banner">
+
+    <img
+   src="img/logo.png/Banner/banner.png"
+    alt="ComprasFlash Banner"
+    class="banner-img">
+
+</section>
+
+<header>
+
+    <div class="brand">
+        🔥 ComprasFlash
+    </div>
+
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Catálogo</a>
+       <a href="faq.html">Preguntas Frecuentes</a>
+       <a href="#">Rastrear</a>
+        <a href="login.html">Iniciar Sesión</a>
+    </nav>
+
+</header>
+
+<footer>
+
+    <section class="destacados">
+
+    <h2>🔥 Productos Destacados</h2>
+
+    <div id="productosDestacados"></div>
+
+</section>
+    © 2026 ComprasFlash - Todos los derechos reservados.
+</footer>
+
+<script>
+
+function cargarProductos(){
+
+    let productos =
+    JSON.parse(localStorage.getItem("productos")) || [];
+
+    let contenedor =
+    document.getElementById("productosDestacados");
+
+    contenedor.innerHTML = "";
+
+    productos.forEach(producto => {
+
+        contenedor.innerHTML += `
+
+        <div class="tarjeta-producto">
+
+            <img src="${producto.imagen}">
+
+            <h3>${producto.nombre}</h3>
+
+            <p>$${producto.precio}</p>
+
+            <p>${producto.descripcion}</p>
+
+        </div>
+
+        `;
+    });
+}
+
+cargarProductos();
+
+</script>
+
+</body>
+</html>
+</html>
