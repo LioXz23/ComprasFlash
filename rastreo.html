@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rastreo - ComprasFlash</title>
+
+<style>
+
+.navbar{
+    background:#222;
+    padding:15px;
+    text-align:center;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin:0 15px;
+    font-weight:bold;
+}
+
+.navbar a:hover{
+    color:#ff6b00;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,sans-serif;
+}
+
+body{
+    background:#111;
+    color:white;
+}
+
+header{
+    background:#1b1b1b;
+    padding:20px;
+    border-bottom:2px solid #ff6b00;
+}
+
+header h1{
+    color:#ff6b00;
+}
+
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:auto;
+    padding:30px;
+}
+
+.pedido{
+    background:#1b1b1b;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.guia{
+    color:#ff6b00;
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.estado{
+    margin-top:15px;
+    font-size:18px;
+}
+
+.timeline{
+    margin-top:15px;
+    line-height:35px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <nav class="navbar">
+
+<a href="perfil.html">👤 Perfil</a>
+
+<a href="catalogo.html">🛍️ Catálogo</a>
+
+<a href="carrito.html">🛒 Carrito</a>
+
+<a href="rastreo.html">🚚 Rastreo</a>
+
+</nav>
+
+<h1>🚚 Rastreo de Paquetes</h1>
+</header>
+
+<div class="container">
+
+<div id="listaPedidos"></div>
+
+</div>
+
+<script>
+
+let usuario =
+JSON.parse(
+localStorage.getItem("usuarioActual")
+);
+
+let pedidos =
+JSON.parse(
+localStorage.getItem("pedidos")
+) || [];
+
+let contenedor =
+document.getElementById("listaPedidos");
+
+let pedidosUsuario =
+pedidos.filter(
+p => p.usuario === usuario.correo
+);
+
+pedidosUsuario.forEach(pedido=>{
+
+    contenedor.innerHTML += `
+
+    <div class="pedido">
+
+        <div class="guia">
+        ${pedido.guia}
+        </div>
+
+        <p>
+        Total: $${pedido.total}
+        </p>
+
+        <div class="estado">
+        Estado actual:
+        <strong>${pedido.estado}</strong>
+        </div>
+
+        <div class="timeline">
+
+        🐎 Pedido confirmado<br>
+
+        ${pedido.estado === "Preparando envío" ||
+          pedido.estado === "En tránsito" ||
+          pedido.estado === "En reparto" ||
+          pedido.estado === "Entregado"
+          ? "🔥 Preparando envío"
+          : ""}
+
+        <br>
+
+        ${pedido.estado === "En tránsito" ||
+          pedido.estado === "En reparto" ||
+          pedido.estado === "Entregado"
+          ? "🚚 En tránsito"
+          : ""}
+
+        <br>
+
+        ${pedido.estado === "En reparto" ||
+          pedido.estado === "Entregado"
+          ? "📦 En reparto"
+          : ""}
+
+        <br>
+
+        ${pedido.estado === "Entregado"
+          ? "✅ Entregado"
+          : ""}
+
+        </div>
+
+    </div>
+
+    `;
+});
+
+</script>
+
+</body>
+</html>
