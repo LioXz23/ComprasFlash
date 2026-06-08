@@ -129,37 +129,7 @@ button:hover{
 let productos =
 JSON.parse(localStorage.getItem("productos")) || [];
 
-let catalogo =
-document.getElementById("catalogo");
-
-productos.forEach((producto,index)=>{
-
-    catalogo.innerHTML += `
-
-    <div class="card">
-
-        <img src="${producto.imagen}">
-
-        <h3>${producto.nombre}</h3>
-
-        <p>${producto.descripcion}</p>
-
-        <p><strong>$${producto.precio}</strong></p>
-
-        <button onclick="agregarCarrito(${index})">
-        Agregar al carrito
-        </button>
-
-    </div>
-
-    `;
-});
-
-function agregarCarrito(index){
-
-    let productos =
-    JSON.parse(localStorage.getItem("productos")) || [];
-    if(productos.length === 0){
+if(productos.length === 0){
 
     productos = [
 
@@ -194,6 +164,39 @@ function agregarCarrito(index){
     ];
 
 }
+
+let catalogo =
+document.getElementById("catalogo");
+
+productos.forEach((producto,index)=>{
+
+    catalogo.innerHTML += `
+
+    <div class="card">
+
+        <img src="${producto.imagen}">
+
+        <h3>${producto.nombre}</h3>
+
+        <p>${producto.descripcion}</p>
+
+        <p><strong>$${producto.precio}</strong></p>
+
+        <button onclick="agregarCarrito(${index})">
+        Agregar al carrito
+        </button>
+
+    </div>
+
+    `;
+});
+
+
+
+function agregarCarrito(index){
+
+    let productos =
+    JSON.parse(localStorage.getItem("productos")) || [];
 
     let carrito =
     JSON.parse(localStorage.getItem("carrito")) || [];
