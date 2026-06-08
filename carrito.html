@@ -124,6 +124,8 @@ Realizar Pedido
 
 let carrito =
 JSON.parse(localStorage.getItem("carrito")) || [];
+console.log(carrito);
+alert(JSON.stringify(carrito));
 
 let contenedor =
 document.getElementById("listaCarrito");
